@@ -2,7 +2,7 @@
 
 import fileManger.Crawler;
 import fileManger.IndexObject;
-import json.ReadJson;
+import json.ReadSettings;
 
 public class Main {
 
@@ -14,9 +14,9 @@ public class Main {
 
         System.out.println("Hello world!");
 
-        ReadJson readJson = new ReadJson();
+        ReadSettings readJson = new ReadSettings();
 
-        if(!readJson.laodSettings()) {
+        if(!readJson.loadSettings()) {
             System.out.println("FSD Is Dissabled In FSD_Settings.json");
             System.exit(0);
         }
