@@ -4,7 +4,7 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 
-// Reads the JSON file for what backup jobs there are.
+// Reads the JSON file settings.
 public class ReadSettings {
 
 

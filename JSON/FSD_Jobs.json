@@ -1,0 +1,18 @@
+{
+  "Jobs": {
+    "Test": {
+		"enabled": true,
+	    "name": "test",
+	    "root": "",
+	    "mode": "version"
+		"period": 20
+	}
+	"Test2":{
+	    "enabled": true,
+	    "name": "test",
+	    "root": "",
+	    "mode": "version"
+		"period": 20
+	}
+	}
+}
