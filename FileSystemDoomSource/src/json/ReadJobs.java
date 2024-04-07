@@ -43,6 +43,8 @@ public class ReadJobs {
                 JSONObject jobData = (JSONObject) jobsJSON.get(object);
                 System.out.println(jobData.get("enabled"));
 
+                System.out.println("Json rec: " + jobData);
+
                 // Creates a job object for use later.
                 jobs.add(new Job(
                         jobData.get("enabled"),
