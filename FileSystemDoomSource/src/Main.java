@@ -2,6 +2,7 @@
 
 import fileManger.Crawler;
 import fileManger.IndexObject;
+import json.ReadJson;
 
 public class Main {
 
@@ -12,6 +13,13 @@ public class Main {
         boolean running = true;
 
         System.out.println("Hello world!");
+
+        ReadJson readJson = new ReadJson();
+
+        if(!readJson.laodSettings()) {
+            System.out.println("FSD Is Dissabled In FSD_Settings.json");
+            System.exit(0);
+        }
 
         Crawler crawler = new Crawler();
 
