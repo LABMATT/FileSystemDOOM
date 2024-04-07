@@ -7,9 +7,21 @@ public class Job {
     public String root = "";
     public String mode = "";
     public int period = 0;
+    public Exception exception;
 
-    public Job() {
 
+    // Job is an object that contains the info about a job from the json file.
+    public Job(Object enabled, Object name, Object root, Object mode, Object period) {
 
+        try{
+
+            this.enabled = (boolean) enabled;
+            this.name = name.toString();
+            this.root = root.toString();
+            this.mode = mode.toString();
+            this.period = (int) period;
+        } catch (Exception e) {
+            exception = e;
+        }
     }
 }

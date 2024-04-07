@@ -3,6 +3,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 // Reads the JSON file for what backup jobs there are.
 // FORMAT FOLLOWS:
@@ -17,25 +19,43 @@ public class ReadJobs {
 
 
 
-    public boolean loadJobs() {
+    public List<Job> loadJobs() {
 
         String FSDjson = "E:\\Projects\\FSDgit\\FileSystemDOOM\\JSON\\FSD_Jobs.json";
         JSONParser parser = new JSONParser();
 
         try {
 
+            List<Job> jobs = new ArrayList<>();
+
             Object fileObject = parser.parse(new FileReader(FSDjson));
             JSONObject json = (JSONObject) fileObject;
 
-            JSONObject jsonSettings = (JSONObject) json.get("Jobs");
+            JSONObject jobsJSON = (JSONObject) json.get("Jobs");
 
-            return (boolean) jsonSettings.get("enable");
+            for (Object object : jobsJSON.keySet()) {
+
+                JSONObject jobData = (JSONObject) jobsJSON.get(object);
+                System.out.println(jobData.get("enabled"));
+
+                // Creates a job object for use later.
+                jobs.add(new Job(
+                        jobData.get("enabled"),
+                        jobData.get("name"),
+                        jobData.get("root"),
+                        jobData.get("mode"),
+                        jobData.get("period")
+                ));
+            }
+
+
+            return jobs;
 
 
         } catch (Exception e) {
             System.out.println("Error Reading Settings: " + e);
         }
 
-        return false;
+        return null;
     }
 }

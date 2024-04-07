@@ -2,14 +2,14 @@
   "Jobs": {
     "Test": {
 		"enabled": true,
-	    "name": "test",
+	    "name": "testProject",
 	    "root": "",
 	    "mode": "version"
 		"period": 20
 	}
 	"Test2":{
 	    "enabled": true,
-	    "name": "test",
+	    "name": "testProject2",
 	    "root": "",
 	    "mode": "version"
 		"period": 20
