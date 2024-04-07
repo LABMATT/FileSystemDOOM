@@ -7,13 +7,14 @@ public class Job {
     public String root = "";
     public String mode = "";
     public int period = 0;
+    public int lastActivation = 0; // Last time the task was preformed.
     public Exception exception;
 
 
     // Job is an object that contains the info about a job from the json file.
     public Job(Object enabled, Object name, Object root, Object mode, Object period) {
 
-        try{
+        try {
 
             this.enabled = (boolean) enabled;
             this.name = name.toString();
@@ -23,5 +24,10 @@ public class Job {
         } catch (Exception e) {
             exception = e;
         }
+    }
+
+
+    public void activation() {
+
     }
 }

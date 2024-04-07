@@ -1,4 +1,5 @@
 package json;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -12,11 +13,15 @@ import java.util.List;
 // enabled - If the job is currently running.
 // name - name of the job
 // root - the root folder this job is for.
-// mode - Mode shows what type of process this should be. Backup is a stright copy. Version is a version control scheem.
-// period - Is How offen the backup occurs.
+// mode - Mode shows what type of process this should be.
+//      - Backup - Stright copy per period.
+//      - Backup if change - Only backs up when the file changes checks every period.
+//      - Backup on change - Backs up when a change occurs. Checks for change every period.
+//      - Version - version control schema.
+//      - Clean - Deletes all files in this folder every period.
+// period - Is How offer the mode is triggered.
 
 public class ReadJobs {
-
 
 
     public List<Job> loadJobs() {

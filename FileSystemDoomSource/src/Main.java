@@ -2,11 +2,13 @@
 
 import fileManger.Crawler;
 import fileManger.IndexObject;
+import json.Job;
 import json.ReadJobs;
 import json.ReadSettings;
 
-public class Main {
+import java.util.List;
 
+public class Main {
 
 
     public static void main(String[] args) {
@@ -18,25 +20,50 @@ public class Main {
         // Read the settings file.
         ReadSettings readJson = new ReadSettings();
 
-        if(!readJson.loadSettings()) {
+        if (!readJson.loadSettings()) {
             System.out.println("FSD Is Disabled In FSD_Settings.json");
             System.exit(0);
         }
 
-        ReadJobs readJobs = new ReadJobs();
-        readJobs.loadJobs();
-
 
         //
         Crawler crawler = new Crawler();
-        IndexObject indexObject = crawler.crawlRoot("C:\\Users\\Matt\\Downloads");
+        IndexObject indexObject;
+        ReadJobs readJobs = new ReadJobs();
+        List<Job> jobList = readJobs.loadJobs();
 
-        System.out.println("Total Index Files: " + indexObject.indexedFiles.size());
-        System.out.println("Total Failed Files: " + indexObject.failedIndexs.size());
+        for (Job job : jobList) {
+            boolean validJob = true;
+
+            if(job.root.isEmpty())
+            {
+                validJob = false;
+            }
+
+            if (!job.enabled)
+            {
+                validJob = false;
+            }
+
+            if(validJob) {
+                System.out.println("Indexing (" + job.name + "): " + job.root);
+                indexObject = crawler.crawlRoot(job.root);
+                System.out.println("Total Index Files: " + indexObject.indexedFiles.size());
+                System.out.println("Total Failed Files: " + indexObject.failedIndexs.size());
+
+                //System.out.println(indexObject.indexedFiles);
+            }
+        }
 
 
-        while(running)
-        {
+        //
+
+
+
+
+
+
+        while (running) {
             //System.out.println("test");
         }
     }

@@ -12,35 +12,35 @@ import java.util.List;
 
 public class Crawler {
 
-    private List<File> auxiliaryCrawl = new ArrayList<>();
-    private List<File> indexedFiles = new ArrayList<>();
-    private List<File> failedIndexs = new ArrayList<>();
-
 
     // Starts the process of crawling all files.
     public IndexObject crawlRoot(String rootlocation) {
 
+        List<File> auxiliaryCrawl = new ArrayList<>();
+        List<File> indexedFiles = new ArrayList<>();
+        List<File> failedIndexs = new ArrayList<>();
+
         boolean validPath = true;
 
         Path path = Paths.get(rootlocation);
-        if(!Files.exists(path)) {
+        if (!Files.exists(path)) {
 
             validPath = false;
         }
 
 
-        if(validPath) {
+        if (validPath) {
 
 
             // Preform inital crawl starting from root Directory. If a files found then add to index list, else add to next round.
             File file = new File(rootlocation);
-            crawl(file);
+            crawl(file, indexedFiles, auxiliaryCrawl, failedIndexs);
 
             // Loop though all index files until the list is empty. Crawl each file.
             int index = 0;
-            while(!auxiliaryCrawl.isEmpty()) {
+            while (!auxiliaryCrawl.isEmpty()) {
 
-                crawl(auxiliaryCrawl.get(0));
+                crawl(auxiliaryCrawl.get(0), indexedFiles, auxiliaryCrawl, failedIndexs);
                 auxiliaryCrawl.remove(0);
 
                 index++;
@@ -56,14 +56,14 @@ public class Crawler {
 
 
     // Crawl a whole folder adding the files to the indexed file list if found else add to second crawl list.
-    private void crawl(File file) {
+    private void crawl(File file, List<File> indexedFiles, List<File> auxiliaryCrawl, List<File> failedIndexs) {
 
         File[] fileList = file.listFiles();
 
-        if(fileList != null) {
-            for(File scannedItem : fileList) {
+        if (fileList != null) {
+            for (File scannedItem : fileList) {
 
-                if(scannedItem.isDirectory()) {
+                if (scannedItem.isDirectory()) {
 
 
                     auxiliaryCrawl.add(scannedItem);
@@ -72,8 +72,7 @@ public class Crawler {
                     indexedFiles.add(scannedItem);
                 }
             }
-        } else
-        {
+        } else {
             failedIndexs.add(file);
         }
     }

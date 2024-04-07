@@ -3,14 +3,21 @@
     "Test": {
 		"enabled": true,
 	    "name": "testProject",
-	    "root": "",
+	    "root": "C:\Users\Matt\Downloads\TestFolder",
 	    "mode": "version"
 		"period": 20
 	}
 	"Test2":{
 	    "enabled": true,
 	    "name": "testProject2",
-	    "root": "",
+	    "root": "C:\Users\Matt\Downloads\TextEXT",
+	    "mode": "version"
+		"period": 20
+	}
+	"fire":{
+	    "enabled": true,
+	    "name": "LM FIRE",
+	    "root": "C:\Users\Matt\Downloads\LMFIRE",
 	    "mode": "version"
 		"period": 20
 	}
