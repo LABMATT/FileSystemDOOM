@@ -1,7 +1,5 @@
 // FILE SYSTEM DOOM
 
-import fileManger.Crawler;
-import fileManger.IndexObject;
 import fileManger.JobThread;
 import fileManger.MessageHandeler;
 import json.Job;
@@ -14,7 +12,7 @@ import java.util.List;
 public class Main {
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         Date date = new Date();
         long startTime = System.currentTimeMillis();
@@ -68,7 +66,8 @@ public class Main {
                 t1.start();
 
                 System.out.println("Is this blocking?");
-                mh.SendMessage(false);
+                Thread.sleep(10000);
+                mh.SendMessage("LM FIRE","core","stop");
 
                 /*
                 System.out.println("Indexing (" + job.name + "): " + job.root);
@@ -85,6 +84,7 @@ public class Main {
         long endTime = System.currentTimeMillis();
         long totalTime = Math.subtractExact(endTime, startTime);
         System.out.println("Runtime was: " + totalTime + "ms OR " + (totalTime/1000f) + "s");
+        System.out.println("FSD Core Stopped.");
 
 
         while (running) {

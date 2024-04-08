@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class MessageHandeler {
 
-    int messageID = 0;
-    List<Message> storedMessages = new ArrayList<>();
+    private int messageID = 0;
+    private List<Message> storedMessages = new ArrayList<>();
 
     public synchronized void SendMessage(String to, String from, String message) {
 
@@ -18,11 +18,14 @@ public class MessageHandeler {
         }
 
         storedMessages.add(new Message(messageID, to, from, message));
+        System.out.println(storedMessages.get(0).message);
     }
 
 
     // Recive message for that reciver. If none then return null.
     public synchronized Message ReadMessage(String reciver) {
+
+        System.out.println("readmessage from: " + reciver);
 
         for(Message message : storedMessages) {
             if(message.to.equalsIgnoreCase(reciver)) {

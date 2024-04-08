@@ -14,7 +14,7 @@
 	    "mode": "version"
 		"period": 20
 	},
-	"fire":{
+	"LM FIRE":{
 	    "enabled": true,
 	    "name": "LM FIRE",
 	    "root": "C:\Users\Matt\Downloads\LMFIRE",

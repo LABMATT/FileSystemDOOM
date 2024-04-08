@@ -26,7 +26,7 @@ public class JobThread implements Runnable {
         try {
 
             while (runJob) {
-                runJob = msg.ReadMessage();
+                runJob = running();
                 System.out.println("Hello from thread. MSG is: " + runJob);
                 Thread.sleep(job.period);
             }
@@ -36,5 +36,16 @@ public class JobThread implements Runnable {
         }
 
         System.out.println("Thread Stopped.");
+    }
+
+    private boolean running() {
+        Message command = msg.ReadMessage(job.name);
+
+        if(command != null)
+        {
+            return !command.message.equalsIgnoreCase("stop");
+        }
+
+        return true;
     }
 }
