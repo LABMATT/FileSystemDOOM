@@ -1,21 +1,21 @@
 {
   "Jobs": {
     "Test": {
-		"enabled": true,
+		"enabled": false,
 	    "name": "testProject",
 	    "root": "C:\Users\Matt\Downloads\TestFolder",
 	    "mode": "version"
 		"period": 20
 	},
 	"Test2":{
-	    "enabled": true,
+	    "enabled": false,
 	    "name": "testProject2",
 	    "root": "C:\Users\Matt\Downloads\TextEXT",
 	    "mode": "version"
 		"period": 20
 	},
 	"fire":{
-	    "enabled": true,
+	    "enabled": false,
 	    "name": "LM FIRE",
 	    "root": "C:\Users\Matt\Downloads\LMFIRE",
 	    "mode": "version",
@@ -24,7 +24,7 @@
 	"BuildTools":{
 	    "enabled": true,
 	    "name": "Buildtoolsjr",
-	    "root": "C:\Users\Matt\Downloads\buildtools",
+	    "root": "C:\Users\Matt\Downloads",
 	    "mode": "version",
 		"period": 20
 	}

@@ -6,6 +6,7 @@ import json.Job;
 import json.ReadJobs;
 import json.ReadSettings;
 
+import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -13,7 +14,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        boolean running = true;
+        Date date = new Date();
+        long startTime = System.currentTimeMillis();
+
+        boolean running = false;
 
         System.out.println("Hello world!");
 
@@ -55,12 +59,11 @@ public class Main {
             }
         }
 
-
-        //
-
-
-
-
+        long endTime = System.currentTimeMillis();
+        long totalTime = Math.subtractExact(endTime, startTime);
+        System.out.println(startTime);
+        System.out.println(endTime);
+        System.out.println("Runtime was: " + totalTime + "ms OR " + (totalTime/1000f) + "s");
 
 
         while (running) {
