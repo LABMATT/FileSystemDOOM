@@ -38,13 +38,10 @@ public class Crawler {
             crawl(file, indexedFiles, auxiliaryCrawl, failedIndexs);
 
             // Loop though all index files until the list is empty. Crawl each file.
-            int index = 0;
             while (!auxiliaryCrawl.isEmpty()) {
 
                 crawl(auxiliaryCrawl.get(0), indexedFiles, auxiliaryCrawl, failedIndexs);
                 auxiliaryCrawl.remove(0);
-
-                index++;
             }
 
             // Create an Object and return it. Oject contains all the info from this index.

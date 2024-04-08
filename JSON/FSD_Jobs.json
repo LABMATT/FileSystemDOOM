@@ -15,14 +15,14 @@
 		"period": 20
 	},
 	"fire":{
-	    "enabled": false,
+	    "enabled": true,
 	    "name": "LM FIRE",
 	    "root": "C:\Users\Matt\Downloads\LMFIRE",
 	    "mode": "version",
-		"period": 20,
+		"period": 2000,
 	},
 	"BuildTools":{
-	    "enabled": true,
+	    "enabled": false,
 	    "name": "Buildtoolsjr",
 	    "root": "C:\Users\Matt\Downloads",
 	    "mode": "version",

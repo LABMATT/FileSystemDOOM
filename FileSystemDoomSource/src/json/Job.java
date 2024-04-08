@@ -6,7 +6,7 @@ public class Job {
     public String name = "";
     public String root = "";
     public String mode = "";
-    public int period = 0;
+    public long period = 0;
     public int lastActivation = 0; // Last time the task was preformed.
     public Exception exception;
 
@@ -20,7 +20,7 @@ public class Job {
             this.name = name.toString();
             this.root = root.toString();
             this.mode = mode.toString();
-            this.period = (int) period;
+            this.period = (long) period;
         } catch (Exception e) {
             exception = e;
         }
