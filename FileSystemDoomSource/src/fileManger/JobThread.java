@@ -20,19 +20,26 @@ public class JobThread implements Runnable {
 
         boolean runJob = true;
 
-
-        System.out.println("Job running");
+        System.out.println("Stared JOB: " + job.name);
 
         try {
 
             while (runJob) {
-                runJob = running();
-                System.out.println("Hello from thread. MSG is: " + runJob);
+                long startTime = System.currentTimeMillis();
+
+                // preform task
+                System.out.println(":)");
+
+                long endTime = System.currentTimeMillis();
+                long totalTime = Math.subtractExact(endTime, startTime);
+                //msg.SendMessage(job.name, "stats", String.valueOf(totalTime));
+
                 Thread.sleep(job.period);
+                runJob = running();
             }
 
         } catch (Exception exception) {
-            System.out.println("error in thread.");
+            System.out.println("error in thread." + exception);
         }
 
         System.out.println("Thread Stopped.");
@@ -41,9 +48,17 @@ public class JobThread implements Runnable {
     private boolean running() {
         Message command = msg.ReadMessage(job.name);
 
-        if(command != null)
+        for (Message recivedMessage : msg.ReadMessages(job.name))
         {
-            return !command.message.equalsIgnoreCase("stop");
+            if (recivedMessage.message.equalsIgnoreCase("stop"))
+            {
+                msg.RemoveMessage(command.signatureID);
+                return false;
+
+            } else if(recivedMessage.message.equalsIgnoreCase("start")) {
+
+                return true;
+            }
         }
 
         return true;

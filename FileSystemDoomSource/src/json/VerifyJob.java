@@ -9,7 +9,7 @@ public class VerifyJob {
     private List<String> jobErrors = new ArrayList<>();
 
     // Makes sure the jobs settings are valid.
-    private List<String> verifyJob(Job job) {
+    public List<String> verifyJob(Job job) {
 
         try {
 

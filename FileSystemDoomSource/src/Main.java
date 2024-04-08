@@ -1,21 +1,23 @@
 // FILE SYSTEM DOOM
 
+import CommandLine.Interpreter;
+import CommandLine.Status;
 import fileManger.JobThread;
 import fileManger.MessageHandeler;
+import fileManger.Shutdown;
 import json.Job;
 import json.ReadJobs;
 import json.ReadSettings;
+import json.VerifyJob;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
 
 
-    public static void main(String[] args) throws InterruptedException {
-
-        Date date = new Date();
-        long startTime = System.currentTimeMillis();
+    public static void main(String[] args) {
 
         boolean running = true;
 
@@ -29,66 +31,43 @@ public class Main {
             System.exit(0);
         }
 
-        /*
-        Crawler crawler = new Crawler();
-        IndexObject indexObject;
 
-         */
+
         ReadJobs readJobs = new ReadJobs();
         List<Job> jobList = readJobs.loadJobs();
+        List<Thread> runningJobs = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
 
         MessageHandeler mh = new MessageHandeler();
 
+        // Goes though list of jobs, Verifes the job is ok, then runs job in new thread.
         for (Job job : jobList) {
-            boolean validJob = true;
 
-            if(job.root.isEmpty())
+            VerifyJob verifyJob = new VerifyJob();
+            List<String> vj = verifyJob.verifyJob(job);
+
+            // if the jobs ok and had no errors then run a new thread and store it in the list.
+            if(vj.isEmpty())
             {
-                validJob = false;
-            }
-
-            if (!job.enabled)
-            {
-                validJob = false;
-            }
-
-            if(validJob) {
-
-                // Register Jobs by creating threads.
-                /*
-                JobThread t1 = new JobThread();
-                t1.run(job, mh);
-
-                 */
-
                 JobThread j1 = new JobThread(job, mh);
-                Thread t1 = new Thread(j1);
-                t1.start();
+                Thread thread = new Thread(j1);
+                thread.setName(job.name);
+                thread.start();
 
-                System.out.println("Is this blocking?");
-                Thread.sleep(10000);
-                mh.SendMessage("LM FIRE","core","stop");
-
-                /*
-                System.out.println("Indexing (" + job.name + "): " + job.root);
-                indexObject = crawler.crawlRoot(job.root);
-                System.out.println("Total Index Files: " + indexObject.indexedFiles.size());
-                System.out.println("Total Failed Files: " + indexObject.failedIndexs.size());
-
-                 */
-
-                //System.out.println(indexObject.indexedFiles);
+                runningJobs.add(thread);
+            } else {
+                errors.addAll(vj);
             }
         }
 
-        long endTime = System.currentTimeMillis();
-        long totalTime = Math.subtractExact(endTime, startTime);
-        System.out.println("Runtime was: " + totalTime + "ms OR " + (totalTime/1000f) + "s");
-        System.out.println("FSD Core Stopped.");
 
+        Interpreter interpreter = new Interpreter(mh, runningJobs, errors, jobList);
+        System.out.println("Enter Command OR help: ");
 
         while (running) {
-            //System.out.println("test");
+
+            interpreter.read();
+
         }
     }
 }

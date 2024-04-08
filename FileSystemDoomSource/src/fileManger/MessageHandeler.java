@@ -18,14 +18,10 @@ public class MessageHandeler {
         }
 
         storedMessages.add(new Message(messageID, to, from, message));
-        System.out.println(storedMessages.get(0).message);
     }
-
 
     // Recive message for that reciver. If none then return null.
     public synchronized Message ReadMessage(String reciver) {
-
-        System.out.println("readmessage from: " + reciver);
 
         for(Message message : storedMessages) {
             if(message.to.equalsIgnoreCase(reciver)) {
@@ -37,22 +33,59 @@ public class MessageHandeler {
     }
 
 
+    public synchronized List<Message> ReadMessages(String reciver) {
+
+        List<Message> recivedMessages = new ArrayList<>();
+
+        for(Message message : storedMessages) {
+            if(message.to.equalsIgnoreCase(reciver)) {
+                recivedMessages.add(message);
+            }
+        }
+
+        return recivedMessages;
+    }
+
+
+    public synchronized boolean isMessage(String reciver) {
+
+        for(Message message : storedMessages) {
+            if(message.to.equalsIgnoreCase(reciver)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     // Given ID remove message from array.
     public synchronized void RemoveMessage(int messageID) {
 
         int index = 0;
-        int removeIndex = 0;
+        int removeIndex = -1;
 
         for(Message message : storedMessages) {
 
             if(message.signatureID == messageID) {
                 removeIndex = index;
+                System.out.println("FOUND REMOVE");
                 break;
             }
 
             index++;
         }
 
-        storedMessages.remove(removeIndex);
+        if(removeIndex != -1)
+        {
+            storedMessages.remove(removeIndex);
+        }
+    }
+
+
+    public synchronized void printMessages() {
+        for (Message msg : storedMessages) {
+            System.out.println(msg.message);
+        }
     }
 }

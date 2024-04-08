@@ -1,22 +1,22 @@
 {
   "Jobs": {
     "Test": {
-		"enabled": false,
+		"enabled": true,
 	    "name": "testProject",
 	    "root": "C:\Users\Matt\Downloads\TestFolder",
 	    "mode": "version"
-		"period": 20
+		"period": 10000
 	},
 	"Test2":{
 	    "enabled": false,
 	    "name": "testProject2",
 	    "root": "C:\Users\Matt\Downloads\TextEXT",
 	    "mode": "version"
-		"period": 20
+		"period": 1000
 	},
-	"LM FIRE":{
+	"LMFIRE":{
 	    "enabled": true,
-	    "name": "LM FIRE",
+	    "name": "LMFIRE",
 	    "root": "C:\Users\Matt\Downloads\LMFIRE",
 	    "mode": "version",
 		"period": 2000,
