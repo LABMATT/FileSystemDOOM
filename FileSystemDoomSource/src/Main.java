@@ -54,6 +54,8 @@ public class Main {
             }
 
             if (runJob) {
+
+                job.isAlive = true;
                 JobThread j1 = new JobThread(messageHandler, jobHandeler);
 
                 job.thread = new Thread(j1);

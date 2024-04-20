@@ -13,8 +13,6 @@ public class Stop {
             System.out.println("Invalid Syntax: Try stop <JOB NAME>.");
         } else {
 
-            messageHandeler.SendMessage(keys.get(1), "core", "stop");
-
             Job foundJob = null;
 
             for (Job job : jobHandeler.getJobList()) {
@@ -27,10 +25,14 @@ public class Stop {
 
             if(foundJob != null && foundJob.running) {
 
-                messageHandeler.SendMessage(foundJob.name, "core", "stop");
-            } else if(foundJob != null){
+                System.out.println("Sending Stop Command To <" + foundJob.name + ">");
+                //messageHandeler.SendMessage(foundJob.name, "core", "stop");
+                jobHandeler.getJob(foundJob.name).isAlive = false;
+            } else if(foundJob != null && foundJob.thread != null){
 
-                messageHandeler.SendMessage(foundJob.name, "core", "stop");
+                System.out.println("Stopping <" + foundJob.name + ">");
+                //messageHandeler.SendMessage(foundJob.name, "core", "stop");
+                jobHandeler.getJob(foundJob.name).isAlive = false;
                 foundJob.thread.interrupt();
             } else {
 

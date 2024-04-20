@@ -27,14 +27,17 @@ public class Start {
                 }
             }
 
-            if(foundJob != null && foundJob.thread != null) {
+            if(foundJob != null) {
 
-                if (foundJob.thread.isAlive()) {
+                if (foundJob.thread != null && foundJob.thread.isAlive()) {
 
                     System.out.println("Job Already Running.");
                 } else {
 
-                    messageHandeler.SendMessage(foundJob.name, "core", "start");
+                    System.out.println("Starting Job: " + foundJob.name);
+
+                    //messageHandeler.SendMessage(foundJob.name, "core", "start");
+                    jobHandeler.getJob(foundJob.name).isAlive = true;
 
                     JobThread j1 = new JobThread(messageHandeler, jobHandeler);
 
@@ -42,6 +45,8 @@ public class Start {
 
                     foundJob.thread.setName(foundJob.name);
                     foundJob.thread.start();
+
+                    System.out.println("Started Job: " + foundJob.name);
                 }
             }
 

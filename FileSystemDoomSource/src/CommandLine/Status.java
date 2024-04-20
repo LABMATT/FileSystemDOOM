@@ -30,7 +30,7 @@ public class Status {
 
             } else {
 
-                if(job.thread != null && job.thread.getState() == Thread.State.TIMED_WAITING) {
+                if(job.thread != null && job.thread.getState() != Thread.State.TERMINATED) {
                     enabledManualyJobs.add(job);
                 } else {
                     disabledJobs.add(job);
@@ -38,54 +38,45 @@ public class Status {
             }
         }
 
-        System.out.println("Status Of All Jobs: ");
+        System.out.println("### Status Of All Jobs ###");
 
         System.out.println(" ");
         System.out.println("Disabled:");
-        for (Job job : disabledJobs) {
-
-            String status = "IDLE";
-            if (job.running) {
-                status = "Running";
-            }
-
-            System.out.println("- JOB: " + job.name + " Status: " + status + " AvrageRunTime: " + jobHandeler.getAvrage(job.name));
-        }
+        printWithFormatting(disabledJobs, jobHandeler);
 
         System.out.println(" ");
         System.out.println("Disabled (Manually):");
-        for (Job job : disabledManualyJobs) {
-
-            String status = "IDLE";
-            if (job.running) {
-                status = "Running";
-            }
-
-            System.out.println("- JOB: " + job.name + " Status: " + status + " AvrageRunTime: " + jobHandeler.getAvrage(job.name));
-        }
+        printWithFormatting(disabledManualyJobs, jobHandeler);
 
         System.out.println(" ");
         System.out.println("Enabled (Manually):");
-        for (Job job : enabledManualyJobs) {
-
-            String status = "IDLE";
-            if (job.running) {
-                status = "Running";
-            }
-
-            System.out.println("- JOB: " + job.name + " Status: " + status + " AvrageRunTime: " + jobHandeler.getAvrage(job.name));
-        }
+        printWithFormatting(enabledManualyJobs, jobHandeler);
 
         System.out.println(" ");
         System.out.println("Enabled:");
-        for (Job job : enabledJobs) {
+        printWithFormatting(enabledJobs, jobHandeler);
+
+        System.out.println("### END ###");
+
+    }
+
+    private void printWithFormatting(List<Job> list, JobHandeler jobHandeler) {
+
+        for (Job job : list) {
 
             String status = "IDLE";
             if (job.running) {
                 status = "Running";
             }
 
-            System.out.println("- JOB: " + job.name + " Status: " + status + " AvrageRunTime: " + jobHandeler.getAvrage(job.name));
+            String thd = "";
+            if(job.thread != null) {
+                thd = String.valueOf(job.thread.isAlive());
+            } else  {
+                thd = "null";
+            }
+
+            System.out.println("- JOB: " + job.name + " Status: " + status + " AvrageRunTime: " + jobHandeler.getAvrage(job.name) + " THREAD: " + thd);
         }
     }
 }

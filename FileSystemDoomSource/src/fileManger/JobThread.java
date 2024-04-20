@@ -24,8 +24,6 @@ public class JobThread implements Runnable {
 
         boolean runJob = true;
 
-        System.out.println("Stared JOB: " + jobName);
-
         try {
 
             while (runJob) {
@@ -34,7 +32,8 @@ public class JobThread implements Runnable {
                 jobHandeler.getJob(jobName).running = true;
 
                 // preform task
-                Thread.sleep(1000);
+                Crawler crawler = new Crawler();
+                crawler.crawlRoot(jobHandeler.getJob(jobName).root);
 
                 // Stop Timer | stop running in jobhandler.
                 long endTime = System.currentTimeMillis();
@@ -42,33 +41,41 @@ public class JobThread implements Runnable {
                 jobHandeler.getJob(jobName).jobRuntime.add(totalTime);
 
                 jobHandeler.getJob(jobName).running = false;
-                Thread.sleep(jobHandeler.getJob(jobName).period);
-                runJob = running();
+
+                runJob = jobHandeler.getJob(jobName).isAlive;
+
+                if(runJob) {
+                    Thread.sleep(jobHandeler.getJob(jobName).period);
+                    runJob = jobHandeler.getJob(jobName).isAlive;
+                }
             }
 
         } catch (Exception exception) {
-            System.out.println("error in thread." + exception);
+
+            jobHandeler.getJob(jobName).errors.add(exception.getMessage());
         }
 
-        System.out.println("Thread Stopped.");
+            System.out.println("<" + jobName + "> Stopped.");
     }
 
     private boolean running() {
-        Message command = msg.ReadMessage(jobName);
+
+        boolean run = true;
 
         for (Message recivedMessage : msg.ReadMessages(jobName))
         {
             if (recivedMessage.message.equalsIgnoreCase("stop"))
             {
-                msg.RemoveMessage(command.signatureID);
-                return false;
+                msg.RemoveMessage(recivedMessage.signatureID);
+                run = false;
 
             } else if(recivedMessage.message.equalsIgnoreCase("start")) {
 
-                return true;
+                msg.RemoveMessage(recivedMessage.signatureID);
+                run = true;
             }
         }
 
-        return true;
+        return run;
     }
 }

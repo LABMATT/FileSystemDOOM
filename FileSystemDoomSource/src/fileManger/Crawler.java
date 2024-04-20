@@ -22,7 +22,6 @@ public class Crawler {
 
         boolean validPath = true;
 
-        System.out.println(rootlocation);
         Path path = Paths.get(rootlocation);
         if (!Files.exists(path)) {
 
