@@ -21,6 +21,7 @@ public class JobThread implements Runnable {
     public void run() {
 
         jobName = Thread.currentThread().getName();
+        String mode = jobHandeler.getJob(jobName).mode;
 
         boolean runJob = true;
 
@@ -32,6 +33,16 @@ public class JobThread implements Runnable {
                 jobHandeler.getJob(jobName).running = true;
 
                 // preform task
+                switch (mode) {
+                    case "version":            // Backs up everything in version control.
+                    case "versionChange":
+                    case "backup":             // Copys the whole struture over.
+                    case "backupChange":       // only replaces files that changed. Backsup on firle change
+                    case "copy":                   // Mirrors the fs elsewhere if one item gets deleted then so does the other.
+                    case "delete":
+                    case "cut":
+                }
+
                 Crawler crawler = new Crawler();
                 crawler.crawlRoot(jobHandeler.getJob(jobName).root);
 
@@ -57,26 +68,5 @@ public class JobThread implements Runnable {
         }
 
             System.out.println("<" + jobName + "> Stopped.");
-    }
-
-    private boolean running() {
-
-        boolean run = true;
-
-        for (Message recivedMessage : msg.ReadMessages(jobName))
-        {
-            if (recivedMessage.message.equalsIgnoreCase("stop"))
-            {
-                msg.RemoveMessage(recivedMessage.signatureID);
-                run = false;
-
-            } else if(recivedMessage.message.equalsIgnoreCase("start")) {
-
-                msg.RemoveMessage(recivedMessage.signatureID);
-                run = true;
-            }
-        }
-
-        return run;
     }
 }

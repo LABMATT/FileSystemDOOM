@@ -44,7 +44,7 @@ public class Interpreter {
 
             case "exit":
                 System.out.println("Stopping Running Jobs.");
-                new Shutdown(runningJobs, messageHandeler);
+                new Shutdown(jobHandeler);
                 System.out.println("Shutdown Complete.");
                 System.exit(0);
                 break;
