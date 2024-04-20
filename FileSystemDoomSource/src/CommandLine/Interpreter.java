@@ -62,7 +62,7 @@ public class Interpreter {
                 break;
 
             case "errors":
-                new Errors(errors);
+                new Errors(jobHandeler);
                 break;
 
             case "msg":

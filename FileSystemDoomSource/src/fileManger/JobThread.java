@@ -41,6 +41,7 @@ public class JobThread implements Runnable {
                 jobHandeler.getJob(jobName).jobRuntime.add(totalTime);
 
                 jobHandeler.getJob(jobName).running = false;
+                jobHandeler.getJob(jobName).lastActivation = System.currentTimeMillis();
 
                 runJob = jobHandeler.getJob(jobName).isAlive;
 

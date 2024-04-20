@@ -1,18 +1,28 @@
 package CommandLine;
 
+import JobFunctions.Job;
+import JobFunctions.JobHandeler;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class Errors {
-    public Errors(List<String> errors) {
+    public Errors(JobHandeler jobHandeler) {
 
         System.out.println("Errors: ");
+        List<String> errors = new ArrayList<>();
+        List<String> errorSource = new ArrayList<>();
 
-        if (!errors.isEmpty()) {
-            for (String error : errors) {
-                System.out.println("-" + error);
-            }
-        } else {
-            System.out.println("No Errors Found.");
+        for (Job job : jobHandeler.getJobList()) {
+            errors.addAll(job.errors);
+            errorSource.add(job.name);
+        }
+
+        int index = 0;
+        for (String error : errors) {
+
+            System.out.println("- <" + errorSource.get(index) +">" + error);
+            index++;
         }
     }
 }

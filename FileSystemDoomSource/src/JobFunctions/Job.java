@@ -7,7 +7,7 @@ public class Job {
 
     // Vars that define and change during a jobs lifetime.
     public Thread thread = null;
-    public boolean isAlive = false;
+    public boolean isAlive = false;   // If false=kills thread | if true= keeps thread running
     public boolean enabled = false;   // Is the job currently Enabled in config.
     public boolean running = false;   // Is the job currently running in a thread. False=Idle | true=Running
     public String status = "";
@@ -18,8 +18,7 @@ public class Job {
     public String target = "";
     public String mode = "";
     public long period = 0;
-    public int lastActivation = 0; // Last time the task was preformed.
-    public Exception exception;
+    public long lastActivation = 0; // Last time the task was preformed.
 
 
     // Job is an object that contains the info about a job from the json file.
@@ -33,7 +32,7 @@ public class Job {
             this.mode = mode.toString();
             this.period = (long) period;
         } catch (Exception e) {
-            exception = e;
+            errors.add(e.getMessage());
         }
     }
 
