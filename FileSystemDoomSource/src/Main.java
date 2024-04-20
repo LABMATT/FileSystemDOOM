@@ -38,30 +38,33 @@ public class Main {
         jobHandeler.setJobList(readJobs.loadJobs());
         List<Job> jobList = jobHandeler.getJobList();
 
-        MessageHandeler mh = new MessageHandeler();
+        MessageHandeler messageHandler = new MessageHandeler();
 
-        // Goes though list of jobs, Verifes the job is ok, then runs job in new thread.
-        for (Job job : jobList) {
+        for (Job job : jobHandeler.getJobList()) {
 
-            VerifyJob verifyJob = new VerifyJob();
-            List<String> vj = verifyJob.verifyJob(job);
+            boolean runJob = true;
 
-            // if the jobs ok and had no errors then run a new thread and store it in the list.
-            if(vj.isEmpty())
-            {
-                JobThread j1 = new JobThread(job, mh, jobHandeler);
-                Thread thread = new Thread(j1);
-                thread.setName(job.name);
-                thread.start();
 
-                runningJobs.add(thread);
-            } else {
-                errors.addAll(vj);
+            if(!job.enabled) {
+                runJob = false;
+            }
+
+            if (!job.errors.isEmpty()) {
+                runJob = false;
+            }
+
+            if (runJob) {
+                JobThread j1 = new JobThread(messageHandler, jobHandeler);
+
+                job.thread = new Thread(j1);
+
+                job.thread.setName(job.name);
+                job.thread.start();
             }
         }
 
 
-        Interpreter interpreter = new Interpreter(mh, runningJobs, errors, jobList, jobHandeler);
+        Interpreter interpreter = new Interpreter(messageHandler, runningJobs, errors, jobList, jobHandeler);
         System.out.println("Enter Command OR help: ");
 
         while (running) {

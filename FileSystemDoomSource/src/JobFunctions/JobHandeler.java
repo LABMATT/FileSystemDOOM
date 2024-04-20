@@ -12,6 +12,7 @@ public class JobHandeler {
         for(Job job : jobList) {
 
             if(job.name.equalsIgnoreCase(jobName)) {
+
                 return job;
             }
         }
@@ -38,8 +39,9 @@ public class JobHandeler {
             avrage = avrage + value;
         }
 
-        avrage = avrage / values.size();
-
+        if(avrage != 0) {
+            avrage = avrage / values.size();
+        }
 
         // Cut down the avrage aray so it doest get to big.
         if (values.size() > 1000) {

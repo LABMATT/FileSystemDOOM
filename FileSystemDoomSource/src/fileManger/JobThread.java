@@ -10,27 +10,28 @@ public class JobThread implements Runnable {
 
     private MessageHandeler msg;
     private JobHandeler jobHandeler;
-    private Job job;
+    private String jobName = null;
     private List<String> jobErrors = new ArrayList<>();
 
-    public JobThread(Job regJob, MessageHandeler regmsg, JobHandeler jobHandeler) {
-        this.job = regJob;
+    public JobThread(MessageHandeler regmsg, JobHandeler jobHandeler) {
         this.msg = regmsg;
         this.jobHandeler = jobHandeler;
     }
 
     public void run() {
 
+        jobName = Thread.currentThread().getName();
+
         boolean runJob = true;
 
-        System.out.println("Stared JOB: " + job.name);
+        System.out.println("Stared JOB: " + jobName);
 
         try {
 
             while (runJob) {
                 // Start Avrg Timer | Set job status Running.
                 long startTime = System.currentTimeMillis();
-                jobHandeler.getJob(job.name).running = true;
+                jobHandeler.getJob(jobName).running = true;
 
                 // preform task
                 Thread.sleep(1000);
@@ -38,10 +39,10 @@ public class JobThread implements Runnable {
                 // Stop Timer | stop running in jobhandler.
                 long endTime = System.currentTimeMillis();
                 long totalTime = Math.subtractExact(endTime, startTime);
-                jobHandeler.getJob(job.name).jobRuntime.add(totalTime);
+                jobHandeler.getJob(jobName).jobRuntime.add(totalTime);
 
-                jobHandeler.getJob(job.name).running = false;
-                Thread.sleep(job.period);
+                jobHandeler.getJob(jobName).running = false;
+                Thread.sleep(jobHandeler.getJob(jobName).period);
                 runJob = running();
             }
 
@@ -53,9 +54,9 @@ public class JobThread implements Runnable {
     }
 
     private boolean running() {
-        Message command = msg.ReadMessage(job.name);
+        Message command = msg.ReadMessage(jobName);
 
-        for (Message recivedMessage : msg.ReadMessages(job.name))
+        for (Message recivedMessage : msg.ReadMessages(jobName))
         {
             if (recivedMessage.message.equalsIgnoreCase("stop"))
             {

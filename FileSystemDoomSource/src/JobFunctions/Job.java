@@ -6,7 +6,7 @@ import java.util.List;
 public class Job {
 
     // Vars that define and change during a jobs lifetime.
-    public Thread thread;
+    public Thread thread = null;
     public boolean enabled = false;   // Is the job currently running.
     public boolean running = false;   // Is the job currently running in a thread. False=Idle | true=Running
     public String status = "";

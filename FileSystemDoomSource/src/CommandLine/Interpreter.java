@@ -50,15 +50,15 @@ public class Interpreter {
                 break;
 
             case "stop":
-                new Stop(runningJobs, messageHandeler, keys);
+                new Stop(jobHandeler, messageHandeler, keys);
                 break;
 
             case "start":
-                new Start(runningJobs, messageHandeler, keys, jobList, jobHandeler);
+                new Start(jobHandeler, messageHandeler, keys);
                 break;
 
             case "list":
-                new Status(runningJobs, jobHandeler);
+                new Status(jobHandeler);
                 break;
 
             case "errors":
