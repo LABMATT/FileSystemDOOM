@@ -1,13 +1,14 @@
 package CommandLine;
 
+import JobFunctions.JobHandeler;
 import fileManger.JobThread;
 import fileManger.MessageHandeler;
-import json.Job;
+import JobFunctions.Job;
 
 import java.util.List;
 
 public class Start {
-    public Start(List<Thread> runningJobs, MessageHandeler messageHandeler, List<String> jobName, List<Job> jobList) {
+    public Start(List<Thread> runningJobs, MessageHandeler messageHandeler, List<String> jobName, List<Job> jobList, JobHandeler jobHandeler) {
 
         boolean jobFound = false;
 
@@ -18,7 +19,7 @@ public class Start {
 
                 if (job.name.equalsIgnoreCase(jobName.get(1))) {
 
-                    JobThread j1 = new JobThread(job, messageHandeler);
+                    JobThread j1 = new JobThread(job, messageHandeler,jobHandeler);
                     Thread thread = new Thread(j1);
                     thread.setName(job.name);
                     thread.start();

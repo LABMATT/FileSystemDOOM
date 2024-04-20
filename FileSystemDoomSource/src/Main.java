@@ -1,18 +1,14 @@
 // FILE SYSTEM DOOM
 
 import CommandLine.Interpreter;
-import CommandLine.Status;
+import JobFunctions.Job;
+import JobFunctions.JobHandeler;
 import fileManger.JobThread;
 import fileManger.MessageHandeler;
-import fileManger.Shutdown;
-import json.Job;
-import json.ReadJobs;
-import json.ReadSettings;
-import json.VerifyJob;
+import json.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
 
@@ -32,11 +28,15 @@ public class Main {
         }
 
 
-
+        // Lists to know what threads are running.
         ReadJobs readJobs = new ReadJobs();
-        List<Job> jobList = readJobs.loadJobs();
         List<Thread> runningJobs = new ArrayList<>();
         List<String> errors = new ArrayList<>();
+
+        // Job handler cotains all the jobs and there status. Set and Get the list.
+        JobHandeler jobHandeler = new JobHandeler();
+        jobHandeler.setJobList(readJobs.loadJobs());
+        List<Job> jobList = jobHandeler.getJobList();
 
         MessageHandeler mh = new MessageHandeler();
 
@@ -49,7 +49,7 @@ public class Main {
             // if the jobs ok and had no errors then run a new thread and store it in the list.
             if(vj.isEmpty())
             {
-                JobThread j1 = new JobThread(job, mh);
+                JobThread j1 = new JobThread(job, mh, jobHandeler);
                 Thread thread = new Thread(j1);
                 thread.setName(job.name);
                 thread.start();
@@ -61,7 +61,7 @@ public class Main {
         }
 
 
-        Interpreter interpreter = new Interpreter(mh, runningJobs, errors, jobList);
+        Interpreter interpreter = new Interpreter(mh, runningJobs, errors, jobList, jobHandeler);
         System.out.println("Enter Command OR help: ");
 
         while (running) {

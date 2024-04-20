@@ -19,7 +19,7 @@
 	    "name": "LMFIRE",
 	    "root": "C:\Users\Matt\Downloads\LMFIRE",
 	    "mode": "version",
-		"period": 2000,
+		"period": 1000,
 	},
 	"BuildTools":{
 	    "enabled": false,

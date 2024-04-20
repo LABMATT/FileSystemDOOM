@@ -1,8 +1,9 @@
 package CommandLine;
 
+import JobFunctions.JobHandeler;
 import fileManger.MessageHandeler;
 import fileManger.Shutdown;
-import json.Job;
+import JobFunctions.Job;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,18 +13,20 @@ import java.util.Scanner;
 public class Interpreter {
 
     private MessageHandeler messageHandeler;
+    private JobHandeler jobHandeler;
     private Scanner input;
     private List<Thread> runningJobs;
     private List<String> errors;
     private List<Job> jobList;
 
 
-    public Interpreter(MessageHandeler mh, List<Thread> runningJobs, List<String> errors, List<Job> jobList) {
+    public Interpreter(MessageHandeler mh, List<Thread> runningJobs, List<String> errors, List<Job> jobList, JobHandeler jobHandeler) {
         this.messageHandeler = mh;
         this.input = new Scanner(System.in);
         this.runningJobs = runningJobs;
         this.errors = errors;
         this.jobList = jobList;
+        this.jobHandeler = jobHandeler;
     }
 
 
@@ -51,11 +54,11 @@ public class Interpreter {
                 break;
 
             case "start":
-                new Start(runningJobs, messageHandeler, keys, jobList);
+                new Start(runningJobs, messageHandeler, keys, jobList, jobHandeler);
                 break;
 
             case "list":
-                new Status(runningJobs);
+                new Status(runningJobs, jobHandeler);
                 break;
 
             case "errors":

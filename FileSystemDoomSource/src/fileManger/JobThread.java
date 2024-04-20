@@ -1,6 +1,7 @@
 package fileManger;
 
-import json.Job;
+import JobFunctions.Job;
+import JobFunctions.JobHandeler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +9,14 @@ import java.util.List;
 public class JobThread implements Runnable {
 
     private MessageHandeler msg;
+    private JobHandeler jobHandeler;
     private Job job;
     private List<String> jobErrors = new ArrayList<>();
 
-    public JobThread(Job regJob, MessageHandeler regmsg) {
+    public JobThread(Job regJob, MessageHandeler regmsg, JobHandeler jobHandeler) {
         this.job = regJob;
         this.msg = regmsg;
+        this.jobHandeler = jobHandeler;
     }
 
     public void run() {
@@ -25,15 +28,19 @@ public class JobThread implements Runnable {
         try {
 
             while (runJob) {
+                // Start Avrg Timer | Set job status Running.
                 long startTime = System.currentTimeMillis();
+                jobHandeler.getJob(job.name).running = true;
 
                 // preform task
-                System.out.println(":)");
+                Thread.sleep(1000);
 
+                // Stop Timer | stop running in jobhandler.
                 long endTime = System.currentTimeMillis();
                 long totalTime = Math.subtractExact(endTime, startTime);
-                //msg.SendMessage(job.name, "stats", String.valueOf(totalTime));
+                jobHandeler.getJob(job.name).jobRuntime.add(totalTime);
 
+                jobHandeler.getJob(job.name).running = false;
                 Thread.sleep(job.period);
                 runJob = running();
             }

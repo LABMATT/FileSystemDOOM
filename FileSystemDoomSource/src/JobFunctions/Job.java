@@ -1,10 +1,20 @@
-package json;
+package JobFunctions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Job {
 
-    public boolean enabled = false;
+    // Vars that define and change during a jobs lifetime.
+    public Thread thread;
+    public boolean enabled = false;   // Is the job currently running.
+    public boolean running = false;   // Is the job currently running in a thread. False=Idle | true=Running
+    public String status = "";
+    public List<Long> jobRuntime = new ArrayList<>();
+    public List<String> errors = new ArrayList<>();
     public String name = "";
     public String root = "";
+    public String target = "";
     public String mode = "";
     public long period = 0;
     public int lastActivation = 0; // Last time the task was preformed.
