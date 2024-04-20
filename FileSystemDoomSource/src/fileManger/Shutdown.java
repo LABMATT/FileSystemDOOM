@@ -36,7 +36,8 @@ public class Shutdown {
                     System.out.println("Job <" + job.name + "> Was Asleep And Has Been Reaped.");
 
                 } else {
-                    System.out.println("Job <" + job.name + "> Still Running. Stop Sent, Awaiting Finish");
+
+                    System.out.println("Job <" + job.name + "> Still Running. Stop Sent, Awaiting Finish. Average run time (" + job.avg + ")s.");
                 }
             }
         }

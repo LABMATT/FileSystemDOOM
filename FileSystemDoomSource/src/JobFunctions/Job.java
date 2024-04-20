@@ -12,6 +12,7 @@ public class Job {
     public boolean running = false;   // Is the job currently running in a thread. False=Idle | true=Running
     public String status = "";
     public List<Long> jobRuntime = new ArrayList<>();
+    public float avg = 0;
     public List<String> errors = new ArrayList<>();
     public String name = "";
     public String root = "";

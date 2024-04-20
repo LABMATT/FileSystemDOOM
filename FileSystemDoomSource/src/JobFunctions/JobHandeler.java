@@ -26,12 +26,14 @@ public class JobHandeler {
 
         long avrage = 0;
         List<Long> values = new ArrayList<>();
+        Job foundJob = null;
 
         for(Job job : jobList) {
 
             if(job.name.equalsIgnoreCase(jobName)) {
 
                 values = job.jobRuntime;
+                foundJob = job;
             }
         }
 
@@ -41,6 +43,7 @@ public class JobHandeler {
 
         if(avrage != 0) {
             avrage = avrage / values.size();
+            foundJob.avg = avrage / 1000;
         }
 
         // Cut down the avrage aray so it doest get to big.
@@ -58,6 +61,7 @@ public class JobHandeler {
             getJob(jobName).jobRuntime = values;
 
         }
+
 
         return avrage;
     }
