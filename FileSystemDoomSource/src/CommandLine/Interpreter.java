@@ -42,11 +42,16 @@ public class Interpreter {
                 new Help();
                 break;
 
+            case "shutdown":
             case "exit":
                 System.out.println("Stopping Running Jobs.");
                 new Shutdown(jobHandeler);
                 System.out.println("Shutdown Complete.");
                 System.exit(0);
+                break;
+
+            case "force":
+                new ForceStop(jobHandeler, keys);
                 break;
 
             case "stop":
@@ -57,6 +62,7 @@ public class Interpreter {
                 new Start(jobHandeler, messageHandeler, keys);
                 break;
 
+            case "ls":
             case "list":
                 new Status(jobHandeler);
                 break;

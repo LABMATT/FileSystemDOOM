@@ -46,6 +46,8 @@ public class Shutdown {
 
             int runningJobs = 0;
 
+            int loadStage = 0;
+
             while (runningJobs != jobs.size()) {
 
                 runningJobs = 0;
@@ -59,13 +61,44 @@ public class Shutdown {
                 }
 
                 Thread.sleep(1000);
+                System.out.print("\r" + load(loadStage));
+                loadStage++;
 
-                System.out.print("...");
+                if (loadStage == 8) {
+                    loadStage = 0;
+                }
+
             }
 
+            System.out.println(" ");
         } catch (Exception e) {
 
             System.out.println("Error Shutting Down Programs Safely." + e.getMessage());
         }
+    }
+
+
+    private String load(int loadStage) {
+
+        switch (loadStage) {
+            case 0:
+                return "|";
+            case 1:
+                return "/";
+            case 2:
+                return "-";
+            case 3:
+                return "\\";
+            case 4:
+                return "|";
+            case 5:
+                return "/";
+            case 6:
+                return "-";
+            case 7:
+                return "\\";
+        }
+
+        return "*";
     }
 }
