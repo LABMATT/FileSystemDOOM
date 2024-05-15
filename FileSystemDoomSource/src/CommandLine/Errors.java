@@ -14,8 +14,21 @@ public class Errors {
         List<String> errorSource = new ArrayList<>();
 
         for (Job job : jobHandeler.getJobList()) {
+
+            int amoutOfErrors = job.errors.size();
+
             errors.addAll(job.errors);
-            errorSource.add(job.name);
+
+            if (amoutOfErrors > 1)
+            {
+                for (int addErrors = 0; addErrors != amoutOfErrors; addErrors++) {
+
+                    errorSource.add(job.name);
+                }
+            } else {
+
+                errorSource.add(job.name);
+            }
         }
 
         int index = 0;

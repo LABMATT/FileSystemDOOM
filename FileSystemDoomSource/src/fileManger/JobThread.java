@@ -1,7 +1,12 @@
+
+// JobThread Is what will run as a "job".
+//
+
 package fileManger;
 
 import JobFunctions.Job;
 import JobFunctions.JobHandeler;
+import JobType.SimpleTasks.DeleteTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +27,7 @@ public class JobThread implements Runnable {
 
         jobName = Thread.currentThread().getName();
         String mode = jobHandeler.getJob(jobName).mode;
+        Job thisJob = jobHandeler.getJob(jobName);
 
         boolean runJob = true;
 
@@ -40,6 +46,9 @@ public class JobThread implements Runnable {
                     case "backupChange":       // only replaces files that changed. Backsup on firle change
                     case "copy":                   // Mirrors the fs elsewhere if one item gets deleted then so does the other.
                     case "delete":
+                        new DeleteTask(thisJob);
+                        break;
+
                     case "cut":
                 }
 

@@ -23,13 +23,14 @@ public class Job {
 
 
     // Job is an object that contains the info about a job from the json file.
-    public Job(Object enabled, Object name, Object root, Object mode, Object period) {
+    public Job(Object enabled, Object name, Object root, Object target, Object mode, Object period) {
 
         try {
 
             this.enabled = (boolean) enabled;
             this.name = name.toString();
             this.root = root.toString();
+            this.target = target.toString();
             this.mode = mode.toString();
             this.period = (long) period;
         } catch (Exception e) {

@@ -40,6 +40,13 @@ public class Main {
 
         MessageHandeler messageHandler = new MessageHandeler();
 
+        if(jobList == null || jobList.isEmpty()) {
+
+            System.out.println("No Jobs To Be Run. OR Error In Job List.");
+            System.out.println("Quitting.");
+            System.exit(0);
+        }
+
         for (Job job : jobHandeler.getJobList()) {
 
             boolean runJob = true;

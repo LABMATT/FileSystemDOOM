@@ -1,9 +1,10 @@
 {
   "Jobs": {
     "testProject": {
-		"enabled": true,
+		"enabled": false,
 	    "name": "testProject",
 	    "root": "C:\Users\Matt\Downloads\TestFolder",
+		"target": "",
 	    "mode": "version"
 		"period": 10000
 	},
@@ -11,13 +12,15 @@
 	    "enabled": false,
 	    "name": "testProject2",
 	    "root": "C:\Users\Matt\Downloads\TextEXT",
-	    "mode": "version"
+		"target": "",
+	    "mode": "version",
 		"period": 1000
 	},
 	"LMFIRE":{
-	    "enabled": true,
+	    "enabled": false,
 	    "name": "LMFIRE",
 	    "root": "C:\Users\Matt\Downloads\LMFIRE",
+		"target": "",
 	    "mode": "version",
 		"period": 1000,
 	},
@@ -25,7 +28,16 @@
 	    "enabled": false,
 	    "name": "BuildTools",
 	    "root": "C:\Users\Matt\Downloads",
+		"target": "",
 	    "mode": "version",
+		"period": 2000
+	},
+	"TestDelete":{
+	    "enabled": true,
+	    "name": "TestDelete",
+	    "root": "",
+		"target": "C:\Users\Matt\Downloads\TestD",
+	    "mode": "delete",
 		"period": 2000
 	}
 	}

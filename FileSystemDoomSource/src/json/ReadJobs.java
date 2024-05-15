@@ -48,6 +48,7 @@ public class ReadJobs {
                         jobData.get("enabled"),
                         jobData.get("name"),
                         jobData.get("root"),
+                        jobData.get("target"),
                         jobData.get("mode"),
                         jobData.get("period")
                 ));
